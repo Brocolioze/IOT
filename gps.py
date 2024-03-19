@@ -16,5 +16,6 @@ with open("gps_data.txt", "w") as file:
                 gps_data = parseGPS(data)
                 if gps_data:
                     file.write(gps_data + "\n")
+                    print(gps_data)  
         except Exception as e:
             print("Error:", e)
