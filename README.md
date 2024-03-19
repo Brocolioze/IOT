@@ -97,3 +97,5 @@ while True:
     parseGPS(str)
 
 ```
+
+https://sparklers-the-makers.github.io/blog/robotics/use-neo-6m-module-with-raspberry-pi/
