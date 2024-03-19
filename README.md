@@ -83,17 +83,22 @@ The above examples can take up too 10-20min to find a GPS signal for the first t
 ```
 import serial
 import pynmea2
-def parseGPS(str):
-    if str.find('GGA') > 0:
-        msg = pynmea2.parse(str)
-        print "Timestamp: %s -- Lat: %s %s -- Lon: %s %s -- Altitude:
-%s %s" %
-(msg.timestamp,msg.lat,msg.lat_dir,msg.lon,msg.lon_dir,msg.altitude,m
-sg.altitude_units)
+
+def parseGPS(data):
+    if data.find(b'GGA') > 0:
+        msg = pynmea2.parse(data.decode())
+        print("Timestamp: {} -- Lat: {} {} -- Lon: {} {} -- Altitude: {} {}".format(msg.timestamp, msg.lat, msg.lat_dir, msg.lon, msg.lon_dir, msg.altitude, msg.altitude_units))
+
 serialPort = serial.Serial("/dev/ttyAMA0", 9600, timeout=0.5)
+
 while True:
-    str = serialPort.readline()
-    parseGPS(str)
+    try:
+        data = serialPort.readline()
+        if data:
+            parseGPS(data)
+    except Exception as e:
+        print("Error:", e)
+
 
 ```
 
