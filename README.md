@@ -1,10 +1,9 @@
 # Python-NEO-6M-GPS-Raspberry-Pi
 Python script for the NEO-6M GPS module on the Raspberry Pi
 ## 1. Connecting Schema
-![Image of Yaktocat](https://raspberrytips.nl/wp-content/uploads/2016/12/UBOLX-NEO-6M-RPI-600x274.png)
-![Image of Yaktoc2at](https://www.raspberrypi-spy.co.uk/wp-content/uploads/2012/06/Raspberry-Pi-GPIO-Layout-Model-B-Plus-rotated-2700x900.png)
-![Image of Yaktoc2at2](./gps-neo-6m-board-schematic.png)
-![Image of Yaktoc2at2](./00532_Raspberry_Pi_NEO-6M_GPS-Modul_-_Schaltplan.png)
+
+![image](https://github.com/Brocolioze/IOT/assets/49524886/ccc1f65a-c5de-4244-9eab-e59d9ac02d52)
+
 ## 2. Install the Dependencies
 * pip installed.
 ```
