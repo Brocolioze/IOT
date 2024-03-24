@@ -43,6 +43,7 @@ def connect_wifi():
 def main():
     output_txt_file = "gps_data.txt"
     gps_data = read_gps_data()
+    gps_data = read_gps_data()
     write_to_txt_file(gps_data, output_txt_file)
     
     connect_wifi()
