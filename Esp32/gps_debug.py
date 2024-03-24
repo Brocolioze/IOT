@@ -41,24 +41,23 @@ def connect_wifi():
     print('Adresse IP:', wlan.ifconfig()[0])
 
 def main():
-    output_txt_file = "gps_data.txt"
-    gps_data = read_gps_data()
-    gps_data = read_gps_data()
-    write_to_txt_file(gps_data, output_txt_file)
+   # output_txt_file = "gps_data.txt"
+   # gps_data = read_gps_data()
+   # gps_data = read_gps_data()
+   # write_to_txt_file(gps_data, output_txt_file)
     
-    connect_wifi()
+   # connect_wifi()
     
     print_pin_info(machine.Pin(17))
     print_pin_info(machine.Pin(16))
 
-    try:
-        with open(output_txt_file, 'r') as file:
-            file_content = file.read()
-            print("Contenu du fichier GPS:")
-            print(file_content)
-    except FileNotFoundError:
-        print("Le fichier GPS n'a pas été trouvé.")
+  #  try:
+   #     with open(output_txt_file, 'r') as file:
+    #        file_content = file.read()
+     #       print("Contenu du fichier GPS:")
+      #      print(file_content)
+    #except FileNotFoundError:
+      #  print("Le fichier GPS n'a pas été trouvé.")
 
 if __name__ == "__main__":
     main()
-

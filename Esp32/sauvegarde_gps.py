@@ -23,7 +23,7 @@ BLUE_LED = machine.Pin(BLUE_LED_PIN, machine.Pin.OUT)
 def read_gps_data():
     gps_data = b""
     start_time = time.time()
-    while time.time() - start_time < 30:
+    while time.time() - start_time < 10:
         if uart.any():
             gps_line = uart.readline()
             print("Données GPS:", gps_line)  
