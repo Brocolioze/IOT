@@ -2,24 +2,23 @@ import machine
 import time
 import network
 
-# Configuration des broches UART pour la communication avec le module GPS Neo-6M
-uart = machine.UART(1, baudrate=9600, tx=17, rx=16)  # Modifier les broches tx et rx selon le câblage
+uart = machine.UART(1, baudrate=9600, tx=machine.Pin(17), rx=machine.Pin(16))
 
-# Informations sur le réseau Wi-Fi
 SSID = 'TECHINFOTR-IOT'
 PASSWORD = 'LeSansFil0134$$'
+
+def print_pin_info(pin):
+    print(f"Broche {pin}: État = {pin.value()}")
 
 def read_gps_data():
     gps_data = []
     while True:
         if uart.any():
             line = uart.readline().decode().strip()
-            if line.startswith('$GPGGA'):
+            if line.startswith('$GPGGA') or line.startswith('$GPRMC'):
                 gps_data.append(line)
-            elif line.startswith('$GPRMC'):
-                gps_data.append(line)
-        time.sleep(0.1)
-        if len(gps_data) >= 2:  # Attendre de recevoir à la fois les lignes GPGGA et GPRMC
+        time.sleep(1.0)
+        if len(gps_data) >= 2:
             return gps_data
 
 def write_to_txt_file(data, output_file):
@@ -31,13 +30,10 @@ def write_to_txt_file(data, output_file):
         print("Erreur lors de l'écriture dans le fichier.")
 
 def connect_wifi():
-    # Configuration de la connexion Wi-Fi
     wlan = network.WLAN(network.STA_IF)
     wlan.active(True)
     
-    # Connexion au réseau Wi-Fi
     if not wlan.isconnected():
-        print('Connexion au réseau Wi-Fi...')
         wlan.connect(SSID, PASSWORD)
         while not wlan.isconnected():
             pass
@@ -45,16 +41,15 @@ def connect_wifi():
     print('Adresse IP:', wlan.ifconfig()[0])
 
 def main():
-    output_txt_file = "gps_data.txt"  # Chemin vers le fichier de sortie .txt
-    
-    # Lire les données GPS et les stocker dans un fichier .txt
+    output_txt_file = "gps_data.txt"
     gps_data = read_gps_data()
     write_to_txt_file(gps_data, output_txt_file)
     
-    # Connexion au Wi-Fi
     connect_wifi()
     
-    # Afficher le contenu du fichier .txt
+    print_pin_info(machine.Pin(17))
+    print_pin_info(machine.Pin(16))
+
     try:
         with open(output_txt_file, 'r') as file:
             file_content = file.read()
@@ -65,3 +60,4 @@ def main():
 
 if __name__ == "__main__":
     main()
+
