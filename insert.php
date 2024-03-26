@@ -1,7 +1,9 @@
 <?php
+$data = file_get_contents('php://input');
+$json_data = json_decode($data, true);
 
-$latitude = $_GET['latitude'];
-$longitude = $_GET['longitude'];
+$latitude = $json_data['latitude'];
+$longitude = $json_data['longitude'];
 $servername = "localhost"; 
 $username = "anthony"; 
 $password = "Gatineau50."; 
@@ -12,7 +14,7 @@ try {
     $pdo = new PDO($dsn, $username, $password);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-    // Vérification des valeurs de latitude et de longitude
+
     if ($latitude !== null && $longitude !== null) {
         $sql = "INSERT INTO GPSData (latitude, longitude) VALUES (?, ?)";
         $stmt = $pdo->prepare($sql);
@@ -28,5 +30,4 @@ try {
 } catch (PDOException $e) {
     echo "Erreur lors de l'insertion des données GPS: " . $e->getMessage();
 }
-
 ?>
